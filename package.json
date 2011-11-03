@@ -1,0 +1,16 @@
+{
+  "name": "chartbeat",
+  "repository": {
+    "url": "https://github.com/sheknows/node-chartbeat.git",
+    "type": "git"
+  },
+  "authors": ["Justin Rainbow <justin.rainbow@sheknows.com>"],
+  "version": "0.1.0",
+  "main": "./src/chartbeat.js",
+  "homepage": "https://github.com/sheknows/node-chartbeat",
+  "description": "Simple API wrapper for Chartbeat",
+  "keywords": [
+    "chartbeat",
+    "chartbeat api"
+  ]
+}
