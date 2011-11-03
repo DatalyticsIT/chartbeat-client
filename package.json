@@ -1,5 +1,5 @@
 {
-  "name": "chartbeat",
+  "name": "chartbeat-api",
   "repository": {
     "url": "https://github.com/sheknows/node-chartbeat.git",
     "type": "git"
