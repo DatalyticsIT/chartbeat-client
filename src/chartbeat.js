@@ -1,60 +1,72 @@
-var http = require('http'),
+var request = require('request'),
     querystring = require('querystring'),
-    url = require('url');
-    
-/**
- * FIXME: Enter a description for the dashboard-chartbeat module
- * @module chartbeat-api
- */
+    url = require('url'),
+    Q = require('q');
 
 /**
  * The base url that is prepended to all real-time API requests
  * @type {string}
  */
-var REALTIME_URL = 'http://api.chartbeat.com';
-
-/**
- * The base url that is prepended to all historical API requests
- * @type {string}
- */
-var HISTORIC_URL = 'http://chartbeat.com/dashapi';
+var BASE_URL = 'http://api.chartbeat.com/';
 
 /**
  * Paths to different API's
  * @type {Object}
  */
-var PATHS = {
-    alerts:        '/alerts/',
-    dataSeries:    '/data_series/',
-    dayDataSeries: '/day_data_series/',
-    histogram:     '/histogram/',
-    pages:         '/pages/',
-    pathSummary:   '/pathsummary/',
-    quickstats:    '/quickstats/',
-    recent:        '/recent/',
-    snapshots:     '/snapshots/',
-    stats:         '/stats/',
-    summary:       '/summary/',
-    topPages:      '/toppages/'
-};
+var API_CONFIG = {
 
-var URLS = {
-    alerts:        HISTORIC_URL,
-    dataSeries:    HISTORIC_URL,
-    dayDataSeries: HISTORIC_URL,
-    histogram:     REALTIME_URL,
-    pages:         REALTIME_URL,
-    pathSummary:   REALTIME_URL,
-    quickstats:    REALTIME_URL,
-    recent:        REALTIME_URL,
-    snapshots:     HISTORIC_URL,
-    stats:         HISTORIC_URL,
-    summary:       REALTIME_URL,
-    topPages:      REALTIME_URL
+    /**
+     * Historical APIs
+     */
+    engagement_series: {
+        path: "historical/engagement/series/"
+    },
+    engagement_stats: {
+        path: "historical/engagement/stats/"
+    },
+    social_series: {
+        path: "historical/social/series/"
+    },
+    social_stats: {
+        path: "historical/social/stats/"
+    },
+    traffic_series: {
+        path: "historical/traffic/series/"
+    },
+    traffic_stats: {
+        path: "historical/traffic/stats/"
+    },
+
+    /**
+     * Live APIs
+     */
+    quickstats: {
+        path: "live/quickstats/",
+        versions: [ "v3", "v4" ]
+    },
+    recent: {
+        path: "live/recent/",
+        versions: [ "v3" ]
+    },
+    referrers: {
+        path: "live/referrers/",
+        versions: [ "v3" ]
+    },
+    summary: {
+        path: "live/summary/",
+        versions: [ "v3" ]
+    },
+    top_geo: {
+        path: "live/top_geo/",
+        versions: [ "v1" ]
+    },
+    toppages: {
+        path: "live/toppages/",
+        versions: [ "v3" ]
+    }
 };
 
 /**
- * FIXME: Enter a description for the DashboardChartbeat class
  * @class ChartbeatApi
  * @extends Widget
  * @constructor
@@ -68,198 +80,73 @@ Chartbeat.prototype = {
     /**
      *
      */
-    request: function (request, params, callback) {
-        if (!PATHS.hasOwnProperty(request)) {
-            throw new Error("Unknown API request: " + request);
+    request: function (request, params, version) {
+        if(!version && request.versions) {
+            version = request.versions[request.versions.length-1];
         }
-        
-        if (!URLS.hasOwnProperty(request)) {
-            throw new Error("Unknown API request URL: " + request);
-        }
-        
-        var url  = URLS[request],
-            path = PATHS[request];
-            
+
+        var url  = BASE_URL + request.path + version;
+
         if (!params) {
             params = {};
         }
-        
-        if (params && params.apply && params.call) {
-            callback = params;
-            params = {};
-        }
-        
+
         params.apikey = this.apiKey;
         
-        this._makeRequest(url + path + "?" + querystring.stringify(params), callback);
-    },
-    
-    isValidMethod: function (method) {
-        return PATHS.hasOwnProperty(method) && URLS.hasOwnProperty(method);
-    },
-    
-    /**
-     * Alerts API call (Historical)
-     * @see http://chartbeat.pbworks.com/alerts
-     * @param {Function} callback  Function to be called once the request has completed successfully.
-     * @param {Object} params  {'since' : Unix Timestamp} (REQUIRED)
-     */
-    alerts: function (params, callback) {
-      this.request('alerts', params, callback);
+        return this._makeRequest(url + "?" + querystring.stringify(params));
     },
 
     /**
-     * Data Series API call (Historical)
-     * @see http://chartbeat.pbworks.com/data_series
-     * @param {Function} callback  Function to be called once the request has completed successfully.
-     * @param {Object} params  {
-     *                           'days'      : Number of Days
-     *                           'minutes'   : Number of Minutes
-     *                           'type'      : 'path', 'ref', 'summary', 'perf
-     *                           'timestamp' : Unix Timestamp,
-     *                           'val'       : Specifies what to return for page, ref, and summary types
-     *                         }
+     * QuickStats API call (Live)
+     * @see http://support.chartbeat.com/docs/api.html#quickstats
+     * @param {Object} params
+     * @param {Object} version  If not provided the latest available version will be used
+     * @returns {Promise} promise   returns a Promise
      */
-    dataSeries: function (params, callback) {
-       this.request('dataSeries', params, callback);
+    quickstats: function (params, version) {
+        return this.request(API_CONFIG.quickstats, params, version);
     },
 
     /**
-     * Day Data Series API call (Historical)
-     * @see http://chartbeat.pbworks.com/day_data_series
-     * @param {Function} callback  Function to be called once the request has completed successfully.
-     * @param {Object} params  {'timestamp' : Unix Timestamp, 'type': 'paths' || 'referrers'} (REQUIRED)
+     * Recent API call (Live)
+     * @see http://support.chartbeat.com/docs/api.html#recent
+     * @param {Object} params
+     * @param {Object} version  If not provided the latest available version will be used
+     * @returns {Promise} promise   returns a Promise
      */
-    dayDataSeries: function (params, callback) {
-       this.request('dayDataSeries', params, callback);
+    recent: function (params, version) {
+        return this.request(API_CONFIG.recent, params, version);
     },
 
     /**
-     * Histogram API call
-     * @see http://chartbeat.pbworks.com/histogram
-     * @param {Function} callback  Function to be called once the request has completed successfully.
-     * @param {Object} params  {
-     *                           'keys'   : Commas separated list of keys (http://chartbeat.pbworks.com/Short-names),
-     *                           'breaks' : How to break the histogram,
-     *                           'path'   : Optional - specific path
-     *                         }
+     * Referrers API call (Live)
+     * @see http://support.chartbeat.com/docs/api.html#referrers
+     * @param {Object} params
+     * @param {Object} version  If not provided the latest available version will be used
+     * @returns {Promise} promise   returns a Promise
      */
-    histogram: function (params, callback) {
-       this.request('histogram', params, callback);
+    referrers: function (params, version) {
+        return this.request(API_CONFIG.referrers, params, version);
     },
 
-     /**
-      * Pages API call (Real-time)
-      * @see http://chartbeat.pbworks.com/pages
-      * @param {Function} callback  Function that will be called once the request has successfully
-      *                                      been completed. The data returned from the request will be
-      *                                      passed to the callback.
-      * @param {Object|undefined} params  { 'path': '/custom/path/' } (OPTIONAL)
-      */
-     pages: function (params, callback) {
-        this.request('pages', params, callback);
-     },
+    _makeRequest: function (req) {
+        var qdef = Q.defer();
 
-     /**
-      * Path Summary API call (Real-time)
-      * @see http://chartbeat.pbworks.com/pathsummary
-      * @param {Function} callback  Function that will be called once the request has successfully
-      *                                      been completed. The data returned from the request will be
-      *                                      passed to the callback.
-      * @param {Object} params  {
-      *                            'keys': 'Comma separated list of keys' (http://chartbeat.pbworks.com/Short-names),
-      *                            'types': 'n' || 's'
-      *                          }
-      */
-     pathSummary: function (params, callback) {
-        this.request('pathSummary', params, callback);
-     },
-
-     /**
-      * Quickstats API call (Real-time)
-      * @see http://chartbeat.pbworks.com/quickstats
-      * @param {Function} callback  Function to be called once the request has completed successfully.
-      * @param {Object} params  { 'path': '/custom/path/' } (OPTIONAL)
-      */
-     quickstats: function (params, callback) {
-        this.request('quickstats', params, callback);
-     },
-
-     /**
-      * Recent API call (Real-time)
-      * @see http://chartbeat.pbworks.com/recent
-      * @param {Function} callback  Function to be called once the request has completed successfully.
-      * @param {Object} params  { 'path': '/custom/path/', limit: Number } (OPTIONAL)
-      */
-     recent: function (params, callback) {
-        this.request('recent', params, callback);
-     },
-
-     /**
-      * Snapshots API call (Historical)
-      * @see http://chartbeat.pbworks.com/snapshots
-      * @param {Function} callback  Function to be called once the request has completed successfully.
-      * @param {Object} params  { 'timestamp': Unix Timestamp } (REQUIRED)
-      */
-     snapshots: function (params, callback) {
-         params['api'] = 'pages';
-         this.request('snapshots', params, callback);
-     },
-
-     /**
-      * Stats API call (Historical)
-      * @see http://chartbeat.pbworks.com/stats
-      * @param {Function} callback  Function to be called once the request has completed successfully.
-      */
-     stats: function (callback) {
-        this.request('stats', params, callback);
-     },
-
-     /**
-      * Summary API call (Real-time)
-      * @see http://chartbeat.pbworks.com/summary
-      * @param {Function} callback  Function to be called once the request has completed successfully.
-      * @param {Object} params  {
-      *                             'keys': 'Comma separated list of keys',
-      *                             'path': '/custom/path/'
-      *                          }
-      */
-     summary: function (params, callback) {
-        this.request('summary', params, callback);
-     },
-
-     /**
-      * Top Pages API call (Real-time)
-      * @see http://chartbeat.pbworks.com/toppages
-      * @param {Function} callback  Function to be called once the request has completed successfully.
-      * @param {Object} params  { 'limit': Number }
-      */
-     toppages: function (params, callback) {
-        this.request('toppages', params, callback);
-     },
-
-    _makeRequest: function (request, callback) {
-        var parsedUrl = url.parse(request);
-        
-        var options = {
-            host: parsedUrl.host,
-            path: parsedUrl.pathname + ((parsedUrl.search === undefined) ? '' : parsedUrl.search)
-        };
-        
-        http.get(options, function (response) {
-            var responseBody = '';
-    		response.on('data', function (chunk) {
-    			responseBody += chunk;
-    		});
-    		response.on('end', function () {
-    			try {
-    				var response = JSON.parse(responseBody);
-    				callback.call(this, response);
-    			} catch(e) {
-    				callback.call(this, null);
-    			}
-    		});
+        request(req, function (error, response, body) {
+            if(error) {
+                qdef.reject(error);
+            } else {
+                try {
+                    var res = JSON.parse(body);
+                    qdef.resolve(res);
+                } catch (error) {
+                    console.error("Error parsing Chartbeat response");
+                    qdef.reject(error);
+                }
+            }
         });
+
+        return qdef.promise;
     }
 
 };

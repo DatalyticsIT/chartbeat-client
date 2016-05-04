@@ -16,5 +16,8 @@
   "keywords": [
     "chartbeat",
     "chartbeat api"
-  ]
+  ],
+  "dependencies": {
+    "q": "^1.4.1"
+  }
 }
