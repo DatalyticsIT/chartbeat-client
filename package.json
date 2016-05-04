@@ -1,13 +1,17 @@
 {
   "name": "chartbeat-api",
   "repository": {
-    "url": "https://github.com/sheknows/node-chartbeat.git",
+    "url": "https://github.com/enrichman/node-chartbeat.git",
     "type": "git"
   },
-  "authors": ["Justin Rainbow <justin.rainbow@sheknows.com>"],
-  "version": "0.1.0",
+  "authors": [
+    "Justin Rainbow <justin.rainbow@sheknows.com>",
+    "Enrico Candino <https://github.com/enrichman>"
+  ],
+  "version": "0.1.1",
   "main": "./src/chartbeat.js",
-  "homepage": "https://github.com/sheknows/node-chartbeat",
+  "homepage": "https://github.com/enrichman/node-chartbeat",
+  "license": "MIT",
   "description": "Simple API wrapper for Chartbeat",
   "keywords": [
     "chartbeat",
