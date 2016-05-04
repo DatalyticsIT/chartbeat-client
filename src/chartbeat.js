@@ -129,6 +129,39 @@ Chartbeat.prototype = {
         return this.request(API_CONFIG.referrers, params, version);
     },
 
+    /**
+     * Summary API call (Live)
+     * @see http://support.chartbeat.com/docs/api.html#summary
+     * @param {Object} params
+     * @param {Object} version  If not provided the latest available version will be used
+     * @returns {Promise} promise   returns a Promise
+     */
+    summary: function (params, version) {
+        return this.request(API_CONFIG.summary, params, version);
+    },
+
+    /**
+     * Top Geo API call (Live)
+     * @see http://support.chartbeat.com/docs/api.html#geo
+     * @param {Object} params
+     * @param {Object} version  If not provided the latest available version will be used
+     * @returns {Promise} promise   returns a Promise
+     */
+    top_geo: function (params, version) {
+        return this.request(API_CONFIG.top_geo, params, version);
+    },
+
+    /**
+     * Top Pages API call (Live)
+     * @see http://support.chartbeat.com/docs/api.html#toppages
+     * @param {Object} params
+     * @param {Object} version  If not provided the latest available version will be used
+     * @returns {Promise} promise   returns a Promise
+     */
+    toppages: function (params, version) {
+        return this.request(API_CONFIG.toppages, params, version);
+    },
+
     _makeRequest: function (req) {
         var qdef = Q.defer();
 
