@@ -5,10 +5,9 @@
     "type": "git"
   },
   "authors": [
-    "Justin Rainbow <justin.rainbow@sheknows.com>",
     "Enrico Candino <https://github.com/enrichman>"
   ],
-  "version": "0.1.1",
+  "version": "1.0.0",
   "main": "./src/chartbeat.js",
   "homepage": "https://github.com/enrichman/node-chartbeat",
   "license": "MIT",
@@ -18,6 +17,7 @@
     "chartbeat api"
   ],
   "dependencies": {
+    "chai": "^3.5.0",
     "q": "^1.4.1"
   }
 }

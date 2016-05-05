@@ -97,6 +97,67 @@ Chartbeat.prototype = {
     },
 
     /**
+     * Engagement Series API call (Historical)
+     * @see http://support.chartbeat.com/docs/api.html#engseries
+     * @param {Object} params
+     * @returns {Promise} promise   returns a Promise
+     */
+    engseries: function (params) {
+        return this.request(API_CONFIG.engagement_series, params);
+    },
+
+    /**
+     * Engagement Stats API call (Historical)
+     * @see http://support.chartbeat.com/docs/api.html#engstats
+     * @param {Object} params
+     * @returns {Promise} promise   returns a Promise
+     */
+    engstats: function (params) {
+        return this.request(API_CONFIG.engagement_stats, params);
+    },
+
+    /**
+     * Social Series API call (Historical)
+     * @see http://support.chartbeat.com/docs/api.html#socseries
+     * @param {Object} params
+     * @returns {Promise} promise   returns a Promise
+     */
+    socseries: function (params) {
+        return this.request(API_CONFIG.social_series, params);
+    },
+
+    /**
+     * Social Stats API call (Historical)
+     * @see http://support.chartbeat.com/docs/api.html#socstats
+     * @param {Object} params
+     * @returns {Promise} promise   returns a Promise
+     */
+    socstats: function (params) {
+        return this.request(API_CONFIG.social_stats, params);
+    },
+
+    /**
+     * Traffic Series API call (Historical)
+     * @see http://support.chartbeat.com/docs/api.html#trafseries
+     * @param {Object} params
+     * @returns {Promise} promise   returns a Promise
+     */
+    trafseries: function (params) {
+        return this.request(API_CONFIG.traffic_series, params);
+    },
+
+    /**
+     * Traffic Stats API call (Historical)
+     * @see http://support.chartbeat.com/docs/api.html#trafstats
+     * @param {Object} params
+     * @returns {Promise} promise   returns a Promise
+     */
+    trafstats: function (params) {
+        return this.request(API_CONFIG.traffic_stats, params);
+    },
+
+
+    /**
      * QuickStats API call (Live)
      * @see http://support.chartbeat.com/docs/api.html#quickstats
      * @param {Object} params
