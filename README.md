@@ -1,3 +1,15 @@
+# chartbeat-client [![npm version](https://badge.fury.io/js/chartbeat-client.svg)](https://badge.fury.io/js/chartbeat-client)
+
+> A node.js wrapper for the [Chartbeat API](https://chartbeat.com/docs/api/).
+
+## Install
+
+Install dot-filter using [npm](https://www.npmjs.com/)
+
+```sh
+$ npm install chartbeat-client --save
+```
+
 ## Usage
 
 Import the library with require and initialize the client with your apiKey:
@@ -25,6 +37,76 @@ ChartbeatClient.quickstats(params)
         // something went wrong
     });
 ```
+
+## Available APIs
+
+### Historical
+
+#### [Engagement Series](http://support.chartbeat.com/docs/api.html#engseries)
+```
+ChartbeatClient.engseries(params)
+```
+
+#### [Engagement Stats](http://support.chartbeat.com/docs/api.html#engstats)
+```
+ChartbeatClient.engstats(params)
+```
+
+#### [Social Series](http://support.chartbeat.com/docs/api.html#socseries)
+```
+ChartbeatClient.socseries(params)
+```
+
+#### [Social Stats](http://support.chartbeat.com/docs/api.html#socstats)
+```
+ChartbeatClient.socstats(params)
+```
+
+#### [Traffic Series](http://support.chartbeat.com/docs/api.html#trafseries)
+```
+ChartbeatClient.trafseries(params)
+```
+
+#### [Traffic Stats](http://support.chartbeat.com/docs/api.html#trafstats)
+```
+ChartbeatClient.trafstats(params)
+```
+
+### Live
+
+For the Live APIs you can pass a version as second parameter, otherwise the latest available version will be used.
+
+#### [QuickStats](http://support.chartbeat.com/docs/api.html#quickstats)
+```
+ChartbeatClient.quickstats(params, version)
+```
+
+#### [Recent](http://support.chartbeat.com/docs/api.html#recent)
+```
+ChartbeatClient.recent(params, version)
+```
+
+#### [Referrers](http://support.chartbeat.com/docs/api.html#referrers)
+```
+ChartbeatClient.referrers(params, version)
+```
+
+#### [Summary](http://support.chartbeat.com/docs/api.html#summary)
+```
+ChartbeatClient.summary(params, version)
+```
+
+#### [Top Geo](http://support.chartbeat.com/docs/api.html#geo)
+```
+ChartbeatClient.top_geo(params, version)
+```
+
+#### [Top Pages](http://support.chartbeat.com/docs/api.html#toppages)
+```
+ChartbeatClient.toppages(params, version)
+```
+
+
 
 Developed By
 --------
