@@ -15,7 +15,7 @@ $ npm install chartbeat-client --save
 Import the library with require and initialize the client with your apiKey:
 
 ```js
-var CB = require("../src/chartbeat");
+var CB = require("chartbeat-client");
 
 var ChartbeatClient = new CB.createClient({
   apiKey: "317a25eccba186e0f6b558f45214c0e7"
@@ -77,31 +77,37 @@ ChartbeatClient.trafstats(params)
 For the Live APIs you can pass a version as second parameter, otherwise the latest available version will be used.
 
 #### [QuickStats](http://support.chartbeat.com/docs/api.html#quickstats)
+Versions: v3, v4
 ```
 ChartbeatClient.quickstats(params, version)
 ```
 
-#### [Recent](http://support.chartbeat.com/docs/api.html#recent)
+#### [Recent Visitors](http://support.chartbeat.com/docs/api.html#recent)
+Versions: v3
 ```
 ChartbeatClient.recent(params, version)
 ```
 
 #### [Referrers](http://support.chartbeat.com/docs/api.html#referrers)
+Versions: v3
 ```
 ChartbeatClient.referrers(params, version)
 ```
 
 #### [Summary](http://support.chartbeat.com/docs/api.html#summary)
+Versions: v3
 ```
 ChartbeatClient.summary(params, version)
 ```
 
 #### [Top Geo](http://support.chartbeat.com/docs/api.html#geo)
+Versions: v1
 ```
 ChartbeatClient.top_geo(params, version)
 ```
 
 #### [Top Pages](http://support.chartbeat.com/docs/api.html#toppages)
+Versions: v3
 ```
 ChartbeatClient.toppages(params, version)
 ```
