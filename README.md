@@ -1,3 +1,31 @@
+## Usage
+
+Import the library with require and initialize the client with your apiKey:
+
+```js
+var CB = require("../src/chartbeat");
+
+var ChartbeatClient = new CB.createClient({
+  apiKey: "317a25eccba186e0f6b558f45214c0e7"
+});
+```
+
+Then call the available APIs passing to it the required parameters:
+
+```js
+var params = {
+    host: "gizmodo.com"
+};
+
+ChartbeatClient.quickstats(params)
+    .then(function(data) {
+        // do something
+    })
+    .catch(function(err) {
+        // something went wrong
+    });
+```
+
 Developed By
 --------
 
