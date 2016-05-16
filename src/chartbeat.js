@@ -232,7 +232,11 @@ Chartbeat.prototype = {
             } else {
                 try {
                     var res = JSON.parse(body);
-                    qdef.resolve(res);
+                    if(response.statusCode == 200) {
+                        qdef.resolve(res);
+                    } else {
+                        qdef.reject(res);
+                    }
                 } catch (error) {
                     console.error("Error parsing Chartbeat response");
                     qdef.reject(error);

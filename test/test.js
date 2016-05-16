@@ -161,5 +161,17 @@ describe("ChartbeatClient", function(){
                     done(err);
                 });
         });
+
+
+        it("should fail", function(done) {
+
+            ChartbeatClient.toppages()
+                .then(function(data) {
+                    done(new Error());
+                })
+                .catch(function(err) {
+                    done();
+                });
+        });
     });
 });
