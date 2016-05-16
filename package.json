@@ -4,6 +4,9 @@
     "url": "https://github.com/DatalyticsIT/chartbeat-client.git",
     "type": "git"
   },
+  "scripts": {
+    "test": "mocha"
+  },
   "authors": [
     "Enrico Candino <https://github.com/enrichman>"
   ],
