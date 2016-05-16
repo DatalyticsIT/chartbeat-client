@@ -1,4 +1,4 @@
-# chartbeat-client [![npm version](https://badge.fury.io/js/chartbeat-client.svg)](https://badge.fury.io/js/chartbeat-client)
+# chartbeat-client [![npm version](https://badge.fury.io/js/chartbeat-client.svg)](https://badge.fury.io/js/chartbeat-client) [![Build Status](https://travis-ci.org/DatalyticsIT/chartbeat-client.svg?branch=master)](https://travis-ci.org/DatalyticsIT/chartbeat-client)
 
 > A node.js wrapper for the [Chartbeat API](https://chartbeat.com/docs/api/).
 

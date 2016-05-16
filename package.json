@@ -4,10 +4,13 @@
     "url": "https://github.com/DatalyticsIT/chartbeat-client.git",
     "type": "git"
   },
+  "scripts": {
+    "test": "mocha"
+  },
   "authors": [
     "Enrico Candino <https://github.com/enrichman>"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./src/chartbeat.js",
   "homepage": "https://github.com/DatalyticsIT/chartbeat-client.git",
   "license": "MIT",
@@ -18,6 +21,8 @@
   ],
   "dependencies": {
     "chai": "^3.5.0",
-    "q": "^1.4.1"
+    "mocha": "^2.4.5",
+    "q": "^1.4.1",
+    "request": "^2.72.0"
   }
 }
