@@ -163,6 +163,18 @@ describe("ChartbeatClient", function(){
         });
 
 
+        it("should execute topvideos", function(done) {
+
+            ChartbeatClient.topvideos(params)
+                .then(function(data) {
+                    expect(data).to.be.not.undefined;
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
+
         it("should fail", function(done) {
 
             ChartbeatClient.toppages()
