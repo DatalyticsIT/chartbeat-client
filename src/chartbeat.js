@@ -89,7 +89,7 @@ Chartbeat.prototype = {
             version = request.versions[request.versions.length-1];
         }
 
-        var url  = BASE_URL + request.path + version;
+        var url  = BASE_URL + request.path + version + "/";
 
         if (!params) {
             params = {};
