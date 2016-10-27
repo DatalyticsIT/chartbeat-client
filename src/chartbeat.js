@@ -63,6 +63,10 @@ var API_CONFIG = {
     toppages: {
         path: "live/toppages/",
         versions: [ "v3" ]
+    },
+    topvideos: {
+        path: "live/video/videos/",
+        versions: [ "v1" ]
     }
 };
 
@@ -221,6 +225,18 @@ Chartbeat.prototype = {
      */
     toppages: function (params, version) {
         return this.request(API_CONFIG.toppages, params, version);
+    },
+
+
+    /**
+     * Top Videos API call (Live)
+     * @see http://support.chartbeat.com/docs/api.html#topvideo
+     * @param {Object} params
+     * @param {Object} version  If not provided the latest available version will be used
+     * @returns {Promise} promise   returns a Promise
+     */
+    topvideos: function (params, version) {
+        return this.request(API_CONFIG.topvideos, params, version);
     },
 
     _makeRequest: function (req) {
